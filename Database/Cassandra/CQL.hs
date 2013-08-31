@@ -1,5 +1,5 @@
 {-# LANGUAGE OverloadedStrings, GeneralizedNewtypeDeriving, ScopedTypeVariables,
-        FlexibleInstances, DeriveDataTypeable, UndecidableInstances,
+        FlexibleInstances, DeriveDataTypeable, UndecidableInstances, CPP,
         BangPatterns, OverlappingInstances, DataKinds, GADTs, KindSignatures #-}
 -- | Haskell client for Cassandra's CQL protocol
 --
@@ -144,6 +144,9 @@ module Database.Cassandra.CQL (
         PreparedQueryID(..)
     ) where
 
+#if !MIN_VERSION_base(4,6,0)
+import Prelude hiding (catch)
+#endif
 import Control.Applicative
 import Control.Concurrent
 import Control.Concurrent.STM
